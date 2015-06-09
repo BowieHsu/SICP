@@ -45,4 +45,33 @@ def fixed_point(f,first_guess):
         else:return try_point(next)
     return try_point(first_guess)
 
-print fixed_point(lambda x: 1 +1.0)
+print fixed_point(lambda x: 1/x +1.0,1.0)
+
+'''
+过程作为返回值
+'''
+def average_damp(fx):
+    return lambda x:(x+fx(x))/2
+#fx = lambda x:x**2
+#print average_damp(lambda x:x**2,4)
+
+def sqrt(x):
+    #print average_damp(lambda y:x/y,x)
+    return fixed_point(average_damp(lambda y:x/y),1.0)
+
+print sqrt(16.0)
+
+'''
+求导数
+'''
+def deriv(g,dx,a):
+    return (lambda x:(g(x+dx)-g(x))/dx)(a)
+print deriv(lambda x: x**3,0.0001,5)
+
+'''
+第一级元素的某些“权利”包括：
+1.可以使用变量命名
+2.可以提供过程作为参数
+3.可以将过程作为返回值
+4.可以包含在数据结构中
+'''
